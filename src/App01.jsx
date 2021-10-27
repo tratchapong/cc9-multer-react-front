@@ -1,15 +1,9 @@
-import React,{useState} from 'react';
+import React from 'react';
 import axios from 'axios';
 import './App.css';
 
 function App() {
-  const [pic, setPic] = useState(null)
-  const [imgSrc, setImgSrc] = useState(null)
-  const hdlChangeFile = (e) => {
-    if (!e.target.files) return
-    setPic(e.target.files[0])
-    setImgSrc(URL.createObjectURL(e.target.files[0]))
-  }
+
 
   const hdlSubmit = (e) => {
     e.preventDefault()
@@ -26,12 +20,7 @@ function App() {
         <input type="text" id="lastName" name="lastName"/>
         <label htmlFor="email">E-Mail :</label>
         <input type="text" id="email" name="email"/>
-        <input type="file" name="manyFiles" id="manyFiles" multiple onChange={hdlChangeFile} accept="image/*" />
-        <div className="showpic">
-          {pic && (
-            <img src={imgSrc} alt="" />
-          )}
-        </div>
+        <input type="file" name="manyFiles" id="manyFiles" multiple />
         <input type="submit" value="Send" />
       </form>
     </div>
