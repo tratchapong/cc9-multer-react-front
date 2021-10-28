@@ -3,12 +3,14 @@ import axios from 'axios';
 import './App.css';
 
 function App() {
-  const [pic, setPic] = useState(null)
-  const [imgSrc, setImgSrc] = useState(null)
+  const [imgSrc, setImgSrc] = useState([])
   const hdlChangeFile = (e) => {
     if (!e.target.files) return
-    setPic(e.target.files[0])
-    setImgSrc(URL.createObjectURL(e.target.files[0]))
+    let allImgSrc = []
+    let files = e.target.files
+    for(let i=0; i<files.length;i++)
+       allImgSrc[i] = URL.createObjectURL(files[i])
+    setImgSrc(allImgSrc)
   }
 
   const hdlSubmit = (e) => {
@@ -28,9 +30,9 @@ function App() {
         <input type="text" id="email" name="email"/>
         <input type="file" name="manyFiles" id="manyFiles" multiple onChange={hdlChangeFile} accept="image/*" />
         <div className="showpic">
-          {pic && (
-            <img src={imgSrc} alt="" />
-          )}
+          {imgSrc && imgSrc.map(x=>(
+            <img key={x} src={x} alt="" />
+          ) ) }
         </div>
         <input type="submit" value="Send" />
       </form>
